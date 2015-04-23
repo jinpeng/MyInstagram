@@ -1,4 +1,4 @@
-package pw.jinpeng.myinstagram;
+package pw.jinpeng.myinstagram.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
