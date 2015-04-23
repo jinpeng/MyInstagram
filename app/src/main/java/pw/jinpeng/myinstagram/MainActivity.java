@@ -71,6 +71,12 @@ public class MainActivity extends ActionBarActivity implements FeedAdapter.OnFee
         feedAdapter = new FeedAdapter(this);
         feedAdapter.setOnFeedItemClickListener(this);
         rvFeed.setAdapter(feedAdapter);
+        rvFeed.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                FeedContextMenuManager.getInstance().onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override
