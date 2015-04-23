@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import butterknife.ButterKnife;
@@ -61,8 +62,10 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             holder.ivFeedBottom.setImageResource(R.drawable.img_feed_bottom_2);
         }
 
-        holder.ivFeedBottom.setOnClickListener(this);
-        holder.ivFeedBottom.setTag(position);
+        holder.btnComments.setOnClickListener(this);
+        holder.btnComments.setTag(position);
+        holder.btnMore.setOnClickListener(this);
+        holder.btnMore.setTag(position);
     }
 
     @Override
@@ -72,9 +75,14 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.ivFeedBottom) {
+        final int viewId = v.getId();
+        if (viewId == R.id.btnComments) {
             if (onFeedItemClickListener != null) {
                 onFeedItemClickListener.onCommentsClick(v, (Integer) v.getTag());
+            }
+        } else if (viewId == R.id.btnMore) {
+            if (onFeedItemClickListener != null) {
+                onFeedItemClickListener.onMoreClick(v, (Integer) v.getTag());
             }
         }
     }
@@ -93,6 +101,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         SquaredImageView ivFeedCenter;
         @InjectView(R.id.ivFeedBottom)
         ImageView ivFeedBottom;
+        @InjectView(R.id.btnComments)
+        ImageButton btnComments;
+        @InjectView(R.id.btnLike)
+        ImageButton btnLike;
+        @InjectView(R.id.btnMore)
+        ImageButton btnMore;
 
         public CellFeedViewHolder(View view) {
             super(view);
@@ -102,5 +116,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     public interface OnFeedItemClickListener {
         public void onCommentsClick(View v, int position);
+        public void onMoreClick(View v, int position);
     }
 }

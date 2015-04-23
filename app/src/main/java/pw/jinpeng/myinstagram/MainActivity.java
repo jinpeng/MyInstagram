@@ -18,8 +18,11 @@ import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import pw.jinpeng.myinstagram.view.FeedContextMenu;
+import pw.jinpeng.myinstagram.view.FeedContextMenuManager;
 
-public class MainActivity extends ActionBarActivity implements FeedAdapter.OnFeedItemClickListener {
+public class MainActivity extends ActionBarActivity implements FeedAdapter.OnFeedItemClickListener,
+    FeedContextMenu.OnFeedContextMenuItemClickListener {
     private static final int ANIM_DURATION_TOOLBAR = 300;
     private static final int ANIM_DURATION_FAB = 400;
 
@@ -131,5 +134,30 @@ public class MainActivity extends ActionBarActivity implements FeedAdapter.OnFee
         intent.putExtra(CommentsActivity.ARG_DRAWING_START_LOCATION, startingLocation[1]);
         startActivity(intent);
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onMoreClick(View v, int itemPosition) {
+        FeedContextMenuManager.getInstance().toggleContextMenuFromView(v, itemPosition, this);
+    }
+
+    @Override
+    public void onReportClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onSharePhotoClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onCopyShareUrlClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
+    }
+
+    @Override
+    public void onCancelClick(int feedItem) {
+        FeedContextMenuManager.getInstance().hideContextMenu();
     }
 }
